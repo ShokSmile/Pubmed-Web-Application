@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal: {{ journal_title }}</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 20px;
+            font-family: 'Arial', sans-serif; /* Choose a suitable font */
+            background-color: #f5f5f5; /* Set background color */
+            color: #333; /* Set text color */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #fff; /* Set background color for list items */
+            border-radius: 5px; /* Add rounded corners for a softer look */
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        h1 {
+            color: #008080; /* Set heading color */
+        }
+
+        a {
+            color: #0066cc; /* Set link color */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+        button {
+            background-color: #008080; /* Set button background color */
+            color: #fff; /* Set button text color */
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #006699; /* Change button color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main Page Button -->
+<a href="{% url 'journal_list' %}">
+    <button>Main Page</button>
+</a>
+
+<h1>Journal: {{ journal_title }}</h1>
+
+<ul>
+    {% for author in authors %}
+        <li><a href="{% url 'author_page' author %}">{{ author }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>

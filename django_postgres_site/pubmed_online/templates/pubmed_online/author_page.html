@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="utf-8">
+    <title>Author page: {{ author_name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        h1 {
+            color: #008080;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #006699;
+        }
+
+        div {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        strong {
+            color: #008080;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Page Button -->
+    <a href="{% url 'journal_list' %}">
+    <button>Main Page</button>
+</a>
+    <h1>{{ author_name }}</h1>
+    {% for title, year, link, jrnl, jrnl_decoded in journals_list_encoded %}
+        <div style="border: 1px solid #000; padding: 10px; margin-bottom: 10px;">
+            <strong>Title:</strong> {{ title }}<br>
+            <strong>Year:</strong> {{ year }}<br>
+            <strong>Link:</strong> <a href="{{ link }}" target="_blank">{{ link }}</a><br>
+            <strong>Journal:</strong> <a href="{% url 'journal_page' jrnl_decoded %}">{{ jrnl }}</a><br>
+            <strong>Authors:</strong>
+
+            {% for author_tuple in author_names %}
+                {% if author_tuple.0 == title %}
+                    <a href="{% url 'author_page' author_tuple.1 %}">{{ author_tuple.1 }}</a>,
+                {% endif %}
+            {% endfor %}<br>
+
+            {% for grant_tuple in grant_info %}
+                {% if grant_tuple.0 == title %}
+                    <strong>Grant info:</strong> {{ grant_tuple.1 }}<br>
+                {% endif %}
+            {% endfor %}
+
+            {% for coi_tuple in coi_info %}
+                {% if coi_tuple.0 == title %}
+                    <strong>Conflict of interest:</strong> {{ coi_tuple.1 }}<br>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</body>
+</html>
